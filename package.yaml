@@ -1,0 +1,63 @@
+# This YAML file describes your package. Stack will automatically generate a
+# Cabal file when you run `stack build`. See the hpack website for help with
+# this file: <https://github.com/sol/hpack>.
+category: Other
+description: knuckleball-core is a new Haskeleton package.
+ghc-options: -Wall
+github: xtendo-org/knuckleball-core
+license: AGPL
+maintainer: XT
+name: knuckleball-core
+synopsis: A new Haskeleton package.
+version: '0.0.0'
+
+extra-source-files:
+- CHANGELOG.md
+- LICENSE.md
+- package.yaml
+- README.md
+- stack.yaml
+
+library:
+  dependencies:
+  - base
+  source-dirs: library
+
+executables:
+  knuckleball-core:
+    dependencies:
+    - base
+    - knuckleball-core
+    ghc-options:
+    - -rtsopts
+    - -threaded
+    - -with-rtsopts=-N
+    main: Main.hs
+    source-dirs: executable
+
+tests:
+  knuckleball-core-test-suite:
+    dependencies:
+    - base
+    - knuckleball-core
+    - tasty
+    - tasty-hspec
+    ghc-options:
+    - -rtsopts
+    - -threaded
+    - -with-rtsopts=-N
+    main: Main.hs
+    source-dirs: test-suite
+
+benchmarks:
+  knuckleball-core-benchmarks:
+    dependencies:
+    - base
+    - knuckleball-core
+    - criterion
+    ghc-options:
+    - -rtsopts
+    - -threaded
+    - -with-rtsopts=-N
+    main: Main.hs
+    source-dirs: benchmark
