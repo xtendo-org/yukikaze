@@ -18,8 +18,17 @@ extra-source-files:
 - README.md
 - stack.yaml
 
+default-extensions:
+- LambdaCase
+- OverloadedStrings
+- RecordWildCards
+
 library:
   dependencies:
+  - attoparsec
+  - bytestring
+  - text
+
   - base
   source-dirs: library
 
