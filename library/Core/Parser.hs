@@ -16,11 +16,11 @@ import Core.Types
 
 
 faceParser :: Parser FaceMsg
-faceParser = P.choice [version, faceNet, unknown]
+faceParser = P.choice [version, faceNet]
   where
     version = P.string "VERSION" *> return FaceMsgVersion
     faceNet = P.string "NET " *> (DownMsg <$> net)
-    unknown = FaceUnknown <$> P.takeByteString
+
 
 net :: Parser DownMsg
 net = P.choice [privmsg, unknown]
@@ -36,6 +36,7 @@ net = P.choice [privmsg, unknown]
         msg <- P.takeByteString
         return $ PRIVMSG (Who nick user host) target msg
     unknown = DownUnknown <$> P.takeByteString
+
 
 takeTillChar :: Char -> Parser ByteString
 takeTillChar c = P.takeTill (== c) <* P.char8 c

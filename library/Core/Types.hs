@@ -8,14 +8,14 @@ import qualified Data.ByteString.Builder as B
 
 
 data FaceMsg
-    = FaceMsgVersion
+    = FaceMsgUnknown
+    | FaceMsgVersion
     | DownMsg DownMsg
-    | FaceUnknown ByteString
     deriving Show
 
 data DownMsg
-    = PRIVMSG Who ByteString ByteString
-    | DownUnknown ByteString
+    = DownUnknown ByteString
+    | PRIVMSG Who ByteString ByteString
     deriving Show
 
 data Who = Who

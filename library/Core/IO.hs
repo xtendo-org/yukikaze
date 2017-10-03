@@ -8,33 +8,40 @@ import Core.Import
 -- external modules
 
 import qualified Data.ByteString as B
+import qualified Data.ByteString.Builder as B
 import qualified Data.ByteString.Lazy as LB
 
+-- local modules
 
-sender :: Chan LB.ByteString -> IO ()
+import Core.Constants
+import Core.Parser
+import Core.Types
+
+
+sender :: Chan CoreMsg -> IO ()
 sender chan = do
-    payload <- (<> "\n") <$> readChan chan
-    LB.putStr payload
+    payload <- readChan chan
+    LB.putStr (B.toLazyByteString (encode payload <> B.byteString cSep))
     sender chan
 
 
-receiver :: Chan ByteString -> IO a
+receiver :: Chan FaceMsg -> IO a
 receiver chan = receiver' ""
   where
     receiver' buffer = do
-        (former, latter) <- loopTillRN buffer
-        writeChan chan former
+        (former, latter) <- loopTillSep buffer
+        writeChan chan $
+            either (const FaceMsgUnknown) id $ parseOnly faceParser former
         receiver' latter
-    loopTillRN buffer
+    loopTillSep buffer
         | B.null latter = do
             received <- get
-            loopTillRN (buffer <> received)
+            loopTillSep (buffer <> received)
         | otherwise = return
-            ( B.take (B.length former + B.length sep) buffer
-            , B.drop (B.length sep) latter
+            ( B.take (B.length former + B.length cSep) buffer
+            , B.drop (B.length cSep) latter
             )
       where
-        (former, latter) = B.breakSubstring sep buffer
-        sep = "\n"
+        (former, latter) = B.breakSubstring cSep buffer
     get :: IO ByteString
-    get = B.hGet stdin 4096
+    get = B.hGetSome stdin cBufSize
