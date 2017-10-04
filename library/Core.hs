@@ -4,7 +4,7 @@ import Core.Import
 
 -- external modules
 
-import qualified Data.ByteString as B
+import qualified Data.ByteString.Char8 as B
 
 -- local modules
 
@@ -34,8 +34,10 @@ mainLoop upstream downstream = do
 simpleReact :: FaceMsg -> Maybe CoreMsg
 simpleReact = \ case
     DownMsg d -> case d of
-        PRIVMSG Who{..} target msg -> if "!ping" `B.isPrefixOf` msg
-            then Just $ UpMsg $ UpPRIVMSG target (whoNick <> ", pong!")
+        PRIVMSG Who{..} place msg -> if "!ping" `B.isPrefixOf` msg
+            then let
+                target = if B.head place == '#' then place else whoNick
+              in Just $ UpMsg $ UpPRIVMSG target (whoNick <> ", pong!")
             else Nothing
         _ -> Nothing
     _ -> Nothing
