@@ -2,17 +2,16 @@
 # Cabal file when you run `stack build`. See the hpack website for help with
 # this file: <https://github.com/sol/hpack>.
 category: Other
-description: knuckleball-core is a new Haskeleton package.
+description: yukikaze-core is a new Haskeleton package.
 ghc-options: -Wall
-github: xtendo-org/knuckleball-core
+github: xtendo-org/yukikaze-core
 license: AGPL
 maintainer: XT
-name: knuckleball-core
+name: yukikaze-core
 synopsis: A new Haskeleton package.
 version: '0.0.0'
 
 extra-source-files:
-- CHANGELOG.md
 - LICENSE.md
 - package.yaml
 - README.md
@@ -33,10 +32,10 @@ library:
   source-dirs: library
 
 executables:
-  knuckleball-core:
+  yukikaze-core:
     dependencies:
     - base
-    - knuckleball-core
+    - yukikaze-core
     ghc-options:
     - -rtsopts
     - -threaded
@@ -45,10 +44,10 @@ executables:
     source-dirs: executable
 
 tests:
-  knuckleball-core-test-suite:
+  yukikaze-core-test-suite:
     dependencies:
     - base
-    - knuckleball-core
+    - yukikaze-core
     - tasty
     - tasty-hspec
     ghc-options:
@@ -59,10 +58,10 @@ tests:
     source-dirs: test-suite
 
 benchmarks:
-  knuckleball-core-benchmarks:
+  yukikaze-core-benchmarks:
     dependencies:
     - base
-    - knuckleball-core
+    - yukikaze-core
     - criterion
     ghc-options:
     - -rtsopts
