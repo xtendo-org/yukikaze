@@ -31,10 +31,12 @@ class Encode d where
 data CoreMsg
     = UpMsg UpMsg
     | CoreMsgVersion
+    | CoreMsgRestart
     deriving Show
 instance Encode CoreMsg where
-    encode (UpMsg d) = "UP " <> encode d
+    encode (UpMsg d) = "NET " <> encode d
     encode CoreMsgVersion = "VERSION"
+    encode CoreMsgRestart = "RESTART"
 
 data UpMsg
     = UpPRIVMSG ByteString ByteString
