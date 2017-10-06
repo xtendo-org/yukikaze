@@ -1,6 +1,6 @@
-module Core.Types where
+module Yukikaze.Types where
 
-import Core.Import
+import Yukikaze.Import
 
 -- external modules
 

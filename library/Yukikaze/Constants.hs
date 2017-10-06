@@ -1,6 +1,6 @@
-module Core.Constants where
+module Yukikaze.Constants where
 
-import Core.Import
+import Yukikaze.Import
 
 
 cBufSize :: Int

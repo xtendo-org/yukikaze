@@ -1,4 +1,4 @@
-module Core.Import
+module Yukikaze.Import
     ( module Module
     , Builder
     , ByteString

@@ -1,6 +1,6 @@
-module Core (main) where
+module Yukikaze (main) where
 
-import Core.Import
+import Yukikaze.Import
 
 -- external modules
 
@@ -8,8 +8,8 @@ import qualified Data.ByteString.Char8 as B
 
 -- local modules
 
-import Core.IO
-import Core.Types
+import Yukikaze.IO
+import Yukikaze.Types
 
 
 main :: IO ()

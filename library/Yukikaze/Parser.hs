@@ -1,9 +1,9 @@
-module Core.Parser
+module Yukikaze.Parser
     ( P.parseOnly
     , faceParser
     ) where
 
-import Core.Import
+import Yukikaze.Import
 
 -- external modules
 
@@ -12,7 +12,7 @@ import qualified Data.Attoparsec.ByteString.Char8 as P
 
 -- local modules
 
-import Core.Types
+import Yukikaze.Types
 
 
 faceParser :: Parser FaceMsg

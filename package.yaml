@@ -2,12 +2,12 @@
 # Cabal file when you run `stack build`. See the hpack website for help with
 # this file: <https://github.com/sol/hpack>.
 category: Other
-description: yukikaze-core is a new Haskeleton package.
+description: yukikaze is a new Haskeleton package.
 ghc-options: -Wall
-github: xtendo-org/yukikaze-core
+github: xtendo-org/yukikaze
 license: AGPL
 maintainer: XT
-name: yukikaze-core
+name: yukikaze
 synopsis: A new Haskeleton package.
 version: '0.0.0'
 
@@ -32,10 +32,10 @@ library:
   source-dirs: library
 
 executables:
-  yukikaze-core:
+  yukikaze:
     dependencies:
     - base
-    - yukikaze-core
+    - yukikaze
     ghc-options:
     - -rtsopts
     - -threaded
@@ -44,10 +44,10 @@ executables:
     source-dirs: executable
 
 tests:
-  yukikaze-core-test-suite:
+  yukikaze-test-suite:
     dependencies:
     - base
-    - yukikaze-core
+    - yukikaze
     - tasty
     - tasty-hspec
     ghc-options:
@@ -58,10 +58,10 @@ tests:
     source-dirs: test-suite
 
 benchmarks:
-  yukikaze-core-benchmarks:
+  yukikaze-benchmarks:
     dependencies:
     - base
-    - yukikaze-core
+    - yukikaze
     - criterion
     ghc-options:
     - -rtsopts

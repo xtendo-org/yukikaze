@@ -1,9 +1,9 @@
-module Core.IO
+module Yukikaze.IO
     ( sender
     , receiver
     ) where
 
-import Core.Import
+import Yukikaze.Import
 
 -- external modules
 
@@ -13,9 +13,9 @@ import qualified Data.ByteString.Lazy as LB
 
 -- local modules
 
-import Core.Constants
-import Core.Parser
-import Core.Types
+import Yukikaze.Constants
+import Yukikaze.Parser
+import Yukikaze.Types
 
 
 sender :: Chan CoreMsg -> IO ()
