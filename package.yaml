@@ -26,6 +26,7 @@ library:
   dependencies:
   - attoparsec
   - bytestring
+  - stm
   - text
 
   - base

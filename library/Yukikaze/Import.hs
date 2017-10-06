@@ -10,6 +10,7 @@ module Yukikaze.Import
 
 import Control.Applicative as Module
 import Control.Concurrent as Module
+import Control.Concurrent.STM as Module
 import Control.Exception as Module
 import Control.Monad as Module
 import Data.Char as Module

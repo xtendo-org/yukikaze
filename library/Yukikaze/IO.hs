@@ -18,19 +18,19 @@ import Yukikaze.Parser
 import Yukikaze.Types
 
 
-sender :: Chan CoreMsg -> IO ()
+sender :: TChan CoreMsg -> IO ()
 sender chan = do
-    payload <- readChan chan
+    payload <- atomically $ readTChan chan
     LB.putStr (B.toLazyByteString (encode payload <> B.byteString cSep))
     sender chan
 
 
-receiver :: Chan FaceMsg -> IO a
+receiver :: TChan FaceMsg -> IO a
 receiver chan = receiver' ""
   where
     receiver' buffer = do
         (former, latter) <- loopTillSep buffer
-        writeChan chan $
+        atomically $ writeTChan chan $
             either (const FaceMsgUnknown) id $ parseOnly faceParser former
         receiver' latter
     loopTillSep buffer

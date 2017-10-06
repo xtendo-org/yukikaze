@@ -16,28 +16,31 @@ main :: IO ()
 main = do
     hSetBuffering stdin NoBuffering
     hSetBuffering stdout NoBuffering
-    upstream <- newChan
-    downstream <- newChan
+    upstream <- atomically newTChan
+    downstream <- atomically newTChan
     _ <- forkIO $ receiver downstream
     _ <- forkIO $ sender upstream
 
     mainLoop upstream downstream
 
 
-mainLoop :: Chan CoreMsg -> Chan FaceMsg -> IO a
+mainLoop :: TChan CoreMsg -> TChan FaceMsg -> IO a
 mainLoop upstream downstream = do
-    faceMsg <- readChan downstream
-    maybe (return ()) (writeChan upstream) $ simpleReact faceMsg
+    faceMsg <- atomically $ readTChan downstream
+    maybe (return ()) (atomically . writeTChan upstream) $ simpleReact faceMsg
     mainLoop upstream downstream
 
 
 simpleReact :: FaceMsg -> Maybe CoreMsg
 simpleReact = \ case
     DownMsg d -> case d of
-        PRIVMSG Who{..} place msg -> if "!ping" `B.isPrefixOf` msg
-            then let
+        PRIVMSG Who{..} place msg
+            | "!ping" `B.isPrefixOf` msg -> let
                 target = if B.head place == '#' then place else whoNick
-              in Just $ UpMsg $ UpPRIVMSG target (whoNick <> ", pong!")
-            else Nothing
+              in Just $ UpMsg $ UpPRIVMSG target (whoNick <> ": pong!")
+            | "!핑" `B.isPrefixOf` msg -> let
+                target = if B.head place == '#' then place else whoNick
+              in Just $ UpMsg $ UpPRIVMSG target (whoNick <> ": 퐁!")
+            | otherwise -> Nothing
         _ -> Nothing
     _ -> Nothing
